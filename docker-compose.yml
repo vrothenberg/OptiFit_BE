@@ -1,0 +1,90 @@
+version: "3.8"
+services:
+  # User Service
+  user-service:
+    build:
+      context: .
+      dockerfile: ./services/user-service/Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - CORS_ORIGIN=*
+      - DB_HOST=postgres-user
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=optifit_users
+      - DB_SYNC=true
+      - DB_LOGGING=true
+      - JWT_SECRET=dev-secret-key-change-in-production
+    depends_on:
+      - postgres-user
+
+  # AI Service
+  ai-service:
+    build:
+      context: .
+      dockerfile: ./services/ai-service/Dockerfile
+    ports:
+      - "4001:4001"
+    environment:
+      - NODE_ENV=development
+      - PORT=4001
+      - CORS_ORIGIN=*
+      - JWT_SECRET=dev-secret-key-change-in-production
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=gemini-1.5-flash
+
+  # Logging Service
+  logging-service:
+    build:
+      context: .
+      dockerfile: ./services/logging-service/Dockerfile
+    ports:
+      - "4002:4002"
+    environment:
+      - NODE_ENV=development
+      - PORT=4002
+      - CORS_ORIGIN=*
+      - DB_HOST=postgres-logs
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=optifit_logs
+      - DB_SYNC=true
+      - DB_LOGGING=true
+      - JWT_SECRET=dev-secret-key-change-in-production
+      - EDAMAM_APP_ID=${EDAMAM_APP_ID}
+      - EDAMAM_APP_KEY=${EDAMAM_APP_KEY}
+    depends_on:
+      - postgres-logs
+
+  # PostgreSQL for User Service
+  postgres-user:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=optifit_users
+    volumes:
+      - postgres-user-data:/var/lib/postgresql/data
+
+  # PostgreSQL for Logging Service
+  postgres-logs:
+    image: postgres:16-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=optifit_logs
+    volumes:
+      - postgres-logs-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-user-data:
+  postgres-logs-data:
