@@ -2,6 +2,16 @@
 
 This document provides a comprehensive guide to the OptiFit backend API endpoints. It serves as a reference for frontend developers to understand how to interact with the various microservices.
 
+## Service Endpoints
+
+The microservices are available at the following endpoints:
+
+- **User Service**: http://localhost:4000
+- **AI Service**: http://localhost:4001
+- **Logging Service**: http://localhost:4002
+
+> **Note for Frontend Developers**: If your frontend configuration is pointing to ports 3001, 3002, and 3003, please update it to use the ports listed above (4000, 4001, 4002).
+
 ## Table of Contents
 
 - [Authentication](#authentication)
@@ -29,7 +39,7 @@ Authorization: Bearer <jwt_token>
 #### Register a new user
 
 ```
-POST /api/auth/register
+POST http://localhost:4000/api/auth/register
 ```
 
 Request body:
@@ -54,7 +64,7 @@ Response:
 #### Login
 
 ```
-POST /api/auth/login
+POST http://localhost:4000/api/auth/login
 ```
 
 Request body:
@@ -78,7 +88,7 @@ Response:
 #### Google OAuth Login
 
 ```
-GET /api/auth/google
+GET http://localhost:4000/api/auth/google
 ```
 
 This will redirect to Google's OAuth page. After successful authentication, the user will be redirected back to the application with a JWT token.
@@ -90,7 +100,7 @@ This will redirect to Google's OAuth page. After successful authentication, the 
 #### Get user profile
 
 ```
-GET /api/users/profile
+GET http://localhost:4000/api/users/profile
 ```
 
 Response:
@@ -115,7 +125,7 @@ Response:
 #### Update user profile
 
 ```
-PUT /api/users/profile
+PUT http://localhost:4000/api/users/profile
 ```
 
 Request body:
@@ -157,7 +167,7 @@ Response:
 #### Get user preferences
 
 ```
-GET /api/users/preferences
+GET http://localhost:4000/api/users/preferences
 ```
 
 Response:
@@ -173,7 +183,7 @@ Response:
 #### Update user preferences
 
 ```
-PUT /api/users/preferences
+PUT http://localhost:4000/api/users/preferences
 ```
 
 Request body:
@@ -203,7 +213,7 @@ Response:
 #### Get food logs
 
 ```
-GET /api/food/logs
+GET http://localhost:4002/api/food/logs
 ```
 
 Query parameters:
@@ -238,7 +248,7 @@ Response:
 #### Create food log
 
 ```
-POST /api/food/logs
+POST http://localhost:4002/api/food/logs
 ```
 
 Request body:
@@ -276,7 +286,7 @@ Response:
 #### Update food log
 
 ```
-PUT /api/food/logs/:id
+PUT http://localhost:4002/api/food/logs/:id
 ```
 
 Request body:
@@ -311,7 +321,7 @@ Response:
 #### Delete food log
 
 ```
-DELETE /api/food/logs/:id
+DELETE http://localhost:4002/api/food/logs/:id
 ```
 
 Response:
@@ -326,7 +336,7 @@ Response:
 #### Get exercise logs
 
 ```
-GET /api/exercise/logs
+GET http://localhost:4002/api/exercise/logs
 ```
 
 Query parameters:
@@ -358,7 +368,7 @@ Response:
 #### Create exercise log
 
 ```
-POST /api/exercise/logs
+POST http://localhost:4002/api/exercise/logs
 ```
 
 Request body:
@@ -390,7 +400,7 @@ Response:
 #### Update exercise log
 
 ```
-PUT /api/exercise/logs/:id
+PUT http://localhost:4002/api/exercise/logs/:id
 ```
 
 Request body:
@@ -420,7 +430,7 @@ Response:
 #### Delete exercise log
 
 ```
-DELETE /api/exercise/logs/:id
+DELETE http://localhost:4002/api/exercise/logs/:id
 ```
 
 Response:
@@ -435,7 +445,7 @@ Response:
 #### Get sleep logs
 
 ```
-GET /api/sleep/logs
+GET http://localhost:4002/api/sleep/logs
 ```
 
 Query parameters:
@@ -466,7 +476,7 @@ Response:
 #### Create sleep log
 
 ```
-POST /api/sleep/logs
+POST http://localhost:4002/api/sleep/logs
 ```
 
 Request body:
@@ -496,7 +506,7 @@ Response:
 #### Update sleep log
 
 ```
-PUT /api/sleep/logs/:id
+PUT http://localhost:4002/api/sleep/logs/:id
 ```
 
 Request body:
@@ -524,7 +534,7 @@ Response:
 #### Delete sleep log
 
 ```
-DELETE /api/sleep/logs/:id
+DELETE http://localhost:4002/api/sleep/logs/:id
 ```
 
 Response:
@@ -539,7 +549,7 @@ Response:
 ### Generate AI Response
 
 ```
-POST /api/ai/chat
+POST http://localhost:4001/api/ai/chat
 ```
 
 Request body:
