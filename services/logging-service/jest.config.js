@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'user-service',
+  displayName: 'logging-service',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,7 +11,7 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/services/user-service',
+  coverageDirectory: '../../coverage/services/logging-service',
   moduleNameMapper: {
     '^@optifit/shared(.*)$': '<rootDir>/../../shared/dist$1',
   },

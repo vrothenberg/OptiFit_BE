@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../dist/out-tsc",
+    "module": "commonjs",
+    "target": "es2020",
+    "declaration": true,
+    "types": ["node", "jest"],
+    "esModuleInterop": true,
+    "paths": {
+      "@optifit/shared": ["../shared/dist"],
+      "@optifit/shared/*": ["../shared/dist/*"]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "tmp"]
+}

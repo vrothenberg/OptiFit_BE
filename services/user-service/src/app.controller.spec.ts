@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello from the User service!"', () => {
-      expect(appController.getHello()).toBe('Hello from the User service!');
+    it('should return "OptiFit User Service API"', () => {
+      expect(appController.getHello()).toBe('OptiFit User Service API');
     });
   });
 });

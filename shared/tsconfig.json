@@ -12,7 +12,8 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "allowJs": true
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts"]

@@ -95,13 +95,15 @@ export class ExerciseService {
       updateExerciseLogDto.exerciseTypeId &&
       updateExerciseLogDto.exerciseTypeId !== exerciseLog.exerciseTypeId
     ) {
-      exerciseType = await this.exerciseTypeRepository.findOne({
+      const foundExerciseType = await this.exerciseTypeRepository.findOne({
         where: { id: updateExerciseLogDto.exerciseTypeId },
       });
 
-      if (!exerciseType) {
+      if (!foundExerciseType) {
         throw new NotFoundError('Exercise type not found');
       }
+      
+      exerciseType = foundExerciseType;
     }
 
     // Update time if provided

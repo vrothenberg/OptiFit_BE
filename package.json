@@ -9,7 +9,10 @@
   "scripts": {
     "start": "nx run-many --target=serve --all",
     "build": "nx run-many --target=build --all",
-    "test": "nx run-many --target=test --all",
+    "build:shared": "cd shared && tsc",
+    "pretest": "npm run build:shared",
+    "test": "nx run-many --target=test --all --skip-nx-cache",
+    "test:fix": "npm run build:shared && jest --config=jest.config.js",
     "lint": "nx run-many --target=lint --all",
     "user-service": "nx serve user-service",
     "logging-service": "nx serve logging-service",

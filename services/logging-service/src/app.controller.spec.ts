@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello from the logging service!"', () => {
-      expect(appController.getHello()).toBe('Hello from the logging service!');
+    it('should return "OptiFit Logging Service API"', () => {
+      expect(appController.getHello()).toBe('OptiFit Logging Service API');
     });
   });
 });

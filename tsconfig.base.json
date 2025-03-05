@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@optifit/shared": ["shared/src/index.ts"],
-      "@optifit/shared/*": ["shared/src/*"]
+      "@optifit/shared": ["shared/index.ts"],
+      "@optifit/shared/*": ["shared/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
