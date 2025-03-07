@@ -3,9 +3,9 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../src/user/user.module';
-import { User } from '../src/user/user.entity';
-import { UserProfile } from '../src/user/user-profile.entity';
-import { UserActivityLog } from '../src/user/user-activity-log.entity';
+import { User } from '../src/user/entity/user.entity';
+import { UserProfile } from '../src/user/entity/user-profile.entity';
+import { UserActivityLog } from '../src/user/entity/user-activity-log.entity';
 
 // Increase Jest's default timeout (e.g., to 10 seconds)
 jest.setTimeout(10000);

@@ -1,14 +1,19 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { User } from './user/user.entity';
-import { UserProfile } from './user/user-profile.entity';
-import { UserActivityLog } from './user/user-activity-log.entity';
+import { User } from './user/entity/user.entity';
+import { UserProfile } from './user/entity/user-profile.entity';
+import { UserActivityLog } from './user/entity/user-activity-log.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
