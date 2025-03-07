@@ -3,6 +3,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'OptiFit User Service API';
+    return 'Hello World!';
   }
 }
