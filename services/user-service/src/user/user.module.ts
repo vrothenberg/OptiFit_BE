@@ -10,5 +10,6 @@ import { UserActivityLog } from './entity/user-activity-log.entity';
   imports: [TypeOrmModule.forFeature([User, UserProfile, UserActivityLog])],
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService], // Add this line to export UserService
 })
 export class UserModule {}

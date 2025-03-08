@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entity/user.entity';
 import { UserProfile } from './user/entity/user-profile.entity';
 import { UserActivityLog } from './user/entity/user-activity-log.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { UserActivityLog } from './user/entity/user-activity-log.entity';
       entities: [User, UserProfile, UserActivityLog],
       synchronize: true, // For development only
     }),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
