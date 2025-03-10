@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { User } from './user/entity/user.entity';
-import { UserProfile } from './user/entity/user-profile.entity';
-import { UserActivityLog } from './user/entity/user-activity-log.entity';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -15,15 +12,24 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: Number(process.env.DB_PORT) || 5432,
-      username: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASS || 'postgres',
-      database: process.env.DB_NAME || 'optifit',
-      entities: [User, UserProfile, UserActivityLog],
-      synchronize: true, // For development only
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST', 'localhost'),
+        port: configService.get<number>('DB_PORT', 5432),
+        username: configService.get('DB_USER', 'postgres'),
+        password: configService.get('DB_PASS', 'postgres'),
+        database: process.env.NODE_ENV === 'test'
+          ? configService.get('TEST_DB_NAME', 'optifit_test')
+          : configService.get('DB_NAME', 'optifit'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: process.env.NODE_ENV === 'test' 
+          ? true 
+          : configService.get<boolean>('DB_SYNC', true), // Consider setting to false in production
+        logging: configService.get<boolean>('DB_LOGGING', false),
+      }),
     }),
     UserModule,
     AuthModule

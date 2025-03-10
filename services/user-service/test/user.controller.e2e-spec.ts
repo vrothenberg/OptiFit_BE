@@ -1,41 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from '../src/user/user.module';
-import { User } from '../src/user/entity/user.entity';
-import { UserProfile } from '../src/user/entity/user-profile.entity';
-import { UserActivityLog } from '../src/user/entity/user-activity-log.entity';
-
-// Increase Jest's default timeout (e.g., to 10 seconds)
-jest.setTimeout(10000);
+import { createTestingApp } from './test-utils';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
   let createdUserId: number;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        // Use SQLite in-memory database for testing
-        TypeOrmModule.forRoot({
-          type: 'sqlite',
-          database: ':memory:',
-          entities: [User, UserProfile, UserActivityLog],
-          synchronize: true,
-        }),
-        UserModule,
-      ],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+    app = await createTestingApp();
+  }, 30000);
 
   afterAll(async () => {
     await app.close();
-    // Wait a bit to ensure all handles are closed
-    await new Promise(resolve => setTimeout(resolve, 500));
   });
 
   it('/user (POST) - create user with profile data', async () => {
